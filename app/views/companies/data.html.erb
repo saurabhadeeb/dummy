@@ -1,0 +1,87 @@
+<% @page_title="Results of Processed URL" %>
+<style>
+  img {max-width: 100%}
+  #article-title, #article-desc {
+    text-align: center;
+    margin: 2% 15% 3% 15%;
+  }
+  #article-desc {
+    text-align: left;
+    margin: 2% 15% 3% 15%;
+  }
+  #article-container {
+    margin: 3% 15% 3% 15%;
+    font-family: Verdana, Gill, Helvetica, sans-serif;
+    line-height: 150%;
+    background-color: #f8f8ff;
+  }
+  #text-container {
+    text-align: justify;
+    font-size: larger;
+    padding: 3%;
+  }
+  #text-container img{
+    display:block; /*allows the element to take auto margins*/ 
+    margin:0 auto; /*centers in compliant browsers*/ 
+    text-align:center; /*centers in old versions of IE*/ 
+  }
+  #text-container a:hover, #text-container a img:hover{box-shadow:0 0 5px 5px #DDDDDD}
+</style>
+<base href="<%= @base_url %>"/>
+<div>
+  <!-- <embed src="http://cordis.europa.eu/fp7/ict/ssai/docs/future-cc-2may-finalreport-experts.pdf" width="500" height="375">
+  <iframe width="0" height="0"
+          src="https://view.officeapps.live.com/op/view.aspx?src=http://download.microsoft.com/download/a/f/2/af22fd56-7f19-47aa-8167-4b1d73cd3c57/twc_mundie.doc">
+</iframe><br/><br/> -->
+  <% if !@video.blank? %>
+    <div>
+      <strong>Video Duration: </strong><%= (@video.duration/60.00).ceil %> minutes<br/>
+      <h1 align="middle"> <%= @video.title %> </h1>
+      <strong> <%= @description %> </strong><br/>
+      <div id='playerXlFAQPDLVxir'></div>
+      <script type='text/javascript'>
+            jwplayer('playerXlFAQPDLVxir').setup({
+                file: 'http://127.0.0.1:3000/videos/<%= @generated_filename %>',
+                image: '<%= @video.thumbnail_medium %>',
+                title: 'Play',
+                width: '50%',
+                aspectratio: '16:10'
+            });
+        </script>
+        <br/>
+        <br/>
+        
+        <strong>Other Sizes of Video thumbnails: </strong><br/>
+      <ul>
+        <li><img src="<%= @video.thumbnail_small %>"/></li>
+        <li><img src="<%= @video.thumbnail_medium %>"/></li>
+        <li><img src="<%= @video.thumbnail_large %>"/></li>
+      </ul>
+    </div>
+  <% else %>
+    <strong>Reading Time:</strong> <%= @reading_minutes %> minutes<br/><br/>
+    <h1 id="article-title"> <%= @title %> </h1>
+    <h4 id="article-desc"> <%= @description %> </h4>
+    <!-- <div align="middle">
+      <img src="<%= @final_img_srcs[0][:url] %>" />
+      </div> 
+    -->
+    <div id="article-container">
+      <div id="text-container">
+        <%= HTMLEntities.new.decode(@page_content).squish.html_safe %><br/><br/>
+      </div>
+    </div>
+    <div>
+    <strong>Read original article at: </strong>
+      <a href="<%= @final_url %>"><%= URI.parse(@final_url).host %></a>
+    </div><br/>
+    <strong>Images: </strong><br/>
+    <ul>
+      <% if !@final_img_srcs.blank? %>
+        <% @final_img_srcs.each do |i_src| %>
+          <li><%= i_src[:size] %> <img src="<%= i_src[:url] %>" /></li>
+        <% end %>
+      <% end %>
+    </ul>
+  <% end %>
+</div>

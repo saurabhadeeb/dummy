@@ -1,0 +1,26 @@
+<% @page_title="URL Entry For Bizkoot Creation" %>
+<p>
+  <%= form_tag companies_data_path do %>
+    <%= text_field_tag :url, nil, placeholder: 'Enter URL...', size: 75 %> <br/>
+    <%= submit_tag "Get URL Data" %>
+  <% end %>
+</p>
+
+<!-- <p>
+  <%  Company.all.each do |c| %>
+  Company Name: <%= c.name %>
+  <br/>
+  Company Domain: <%= c.email_domain %>
+  <% end %>
+  <br/>
+  <br/>
+</p>
+
+<%= form_for @company do |f| %>
+  <%= f.label :name, 'Company Name' %>:
+  <%= f.text_field :name %><br/>
+  <%= f.label :email_domain, 'Company Email Domain' %>:
+  <%= f.text_field :email_domain %><br/>
+  <%= f.submit %>
+<% end %>
+  -->

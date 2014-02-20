@@ -1,0 +1,8 @@
+<h1>Goodbye my friend</h1>
+<p>Was simply great to have you here!</p>
+<p>Let's <%= link_to("Start again",say_hello_path) %>. </p>
+<ul>
+<% for file in @files %>
+  <li>File: <%= file %> </li>
+ <% end %> 
+</ul>
