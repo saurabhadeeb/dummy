@@ -27,7 +27,6 @@
   }
   #text-container a:hover, #text-container a img:hover{box-shadow:0 0 5px 5px #DDDDDD}
 </style>
-<base href="<%= @base_url %>"/>
 <div>
   <!-- <embed src="http://cordis.europa.eu/fp7/ict/ssai/docs/future-cc-2may-finalreport-experts.pdf" width="500" height="375">
   <iframe width="0" height="0"
@@ -58,12 +57,34 @@
         <li><img src="<%= @video.thumbnail_large %>"/></li>
       </ul>
     </div>
+  <% elsif @slideshow == true %>
+    <h1 id="article-title"> <%= @title %> </h1>
+    <h4 id="article-desc"> <%= @description %> </h4>
+    <div class="slider-wrapper theme-default">
+        <div id="slider">
+          <% @slide_images.each do |img| %>
+            <img src="<%= img %>" />
+          <% end %>
+        </div>
+    </div>
+    <script>
+      $(window).load(function() {
+        $('#slider').ramblingSlider({
+            manualAdvance: true,
+            directionNavHide: false,
+            speed: 50,
+            effect: 'slideInLeft',
+            prevText: 'Prev Slide',
+            nextText: 'Next Slide'
+          });
+      });
+    </script>
   <% else %>
     <strong>Reading Time:</strong> <%= @reading_minutes %> minutes<br/><br/>
     <h1 id="article-title"> <%= @title %> </h1>
     <h4 id="article-desc"> <%= @description %> </h4>
-    <!-- <div align="middle">
-      <img src="<%= @final_img_srcs[0][:url] %>" />
+    <!-- <div align="middle">  
+        <img src="<%= @final_img_srcs[0][:url] unless @final_img_srcs.blank? %>" />
       </div> 
     -->
     <div id="article-container">

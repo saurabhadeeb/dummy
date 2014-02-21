@@ -23,7 +23,7 @@ end
 gem 'jquery-rails'
 
 #Experimenting with code
-gem "ruby-readability", :git => 'https://github.com/pagojo/ruby-readability.git', :require => 'readability'
+gem "ruby-readability", :require => 'readability'
 gem  "fastimage"
 gem "htmlentities"
 gem "open_uri_redirections"
@@ -32,6 +32,7 @@ gem "viddl-rb"
 gem 'jw_player_helper'
 gem 'twitter'
 gem 'rails_autolink'
+gem 'rambling-slider-rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
