@@ -1,39 +1,203 @@
-Sales
- Sales Management
- Sales Negotiation
- Sales Forecasting
- Sales Techniques
-Marketing
- Marketing Strategy
- Marketing Tips
- Advertising
- Digital Marketing
- Marketing Research 
 HR
- Career Management
- Coaching And Mentoring
- Compensation And Benefits
  Corporate Responsibility
- Diversity And Work Culture
- Employee Engagement
- Employee Retention
- Employer Branding
- Grievance Redressal
- Hi Potential Employees
+ Talent Management
+ Employee Relations
  HR Metrics + Analytics
  HR Transformation
  Human Resource Business Partner
  Human Resource Strategy
- Learning + Development
- Manpower Planning
- Onboarding
  Organisation Development
- Performance Management
- Recruitment
- Rewards And Recognition
- Succession Management
- Talent Management
-IT
- .net
- dot net
- java
+IT Testing
+ Java
+ .Net
+ CBAP
+ QSTE
+ CSTE
+ Inginium
+ PMP
+ Sharepoint
+ Risk Management
+ CMMi Framework
+ Selinium
+ Sahi
+ Test NG
+ Cucumber Framework
+Business Processing
+ Annuities
+ Retirals
+ Group Insurance
+ Life Insurance
+ Disabilities
+ Group Retirals
+ Underwriting
+ Actuarials
+ Claims Processing
+Business Communication
+ Stakeholder Management and Communication
+ Corporate Identity
+ Corporate Branding
+ Corporate Reputation
+ Communication Strategy
+ Internal Communication
+ Social Media
+ Crisis Communication
+Quality
+ Six Sigma
+ Statistical Process Control
+ Quality Tools
+ DOE
+Finance
+ Financial Accounting
+ Audit
+ Evaluating Business Investments
+ Accounting Standard
+ Financial Management
+ Portfolio Management
+ Taxation
+ Treasury Management
+Information Security
+ Enterprise Data Protection
+ Application and Platform Security
+ Enterprise Identity and Access Management
+ Government IT Security Management
+ Information Security Threats
+ Security Audit, Compliance and Standards
+ Enterprise Network Security
+ Information Security Management
+Technology Risk and Compliance
+ Regulatory compliance needs
+ SOX
+ HIPAA
+ PCI
+ Vulnerability Assessments
+ Compliance Software and Solutions
+ Framework Software
+ Data Retention Tools
+ ID Management 
+ Access Management
+ Reporting Software
+ Encryption Solution
+ Log Management Software
+ Training Audits
+ Risk Management
+ Information Technology Governance
+ Enterprise Cloud Compliance
+ Business Records Management
+Administration
+ Service Level Agreement
+ Vendor & Payment Management
+ Tracking Mechanisms
+ Security Management
+ Office Management
+ Travel Management
+ Environmental Management
+ Budget Preparations and reviews
+ Handling Statutory and government agencies
+Sales
+ Prospecting
+ Sales Negotiations
+ Sales Communication
+ Sales Presentation
+ Closing A Sale
+ Art of Selling
+ Relationship Building
+ After Sales
+ Sales Strategy
+ Sales Tips
+Legal
+ Intellectual Property
+ Securities Law
+ Legal Writing and Professional Communication
+ Sports Law
+ Drafting and Reviewing Commercial Contracts
+ Mergers and Acquiitions law
+ Banking and Finance Laws
+ Environmental Law
+ Legal Research
+ Competition Law
+ Contract Law
+ Patent Law
+ Audit 
+ Taxation Laws
+Operations
+ Business Process Outsourcing
+ Disaster Recovery Management
+ Business Continuity Management
+ Project Management
+ Production & Operations Management
+ Management Information System
+ Database Management System
+ Business Process Improvement
+ Total Quality Management
+ Six Sigma - Introduction
+Strategy
+ Business Planning
+ Business Plans
+ Project Management
+ Risk Identification
+ Business Intelligence
+ Market Analysis
+ feasability Studies
+ Client Interaction
+ Client development
+ Business Development
+Customer Service
+ Customer Service and Sales
+ Customer Relationship Management
+ Customer Service Center
+ CRM
+Management Topics
+ Leadership Skills
+ Team Management
+ Problem Solving
+ Decision Making
+ Time Management
+ Stress Management
+ Communication Skills
+ Coaching and Training
+ Conflict Management
+ Customer Service
+ Diversity and Cultural Competency
+ Interviewing, Hiring and Career Development
+ Leadership
+ Management Skills
+ Negotiation and Sales Skills
+ Performance and Productivity
+ Team Management
+ Work-Life Balance
+Insurance
+ Annuities
+ Auto Insurance
+ Claims Filing
+ Credit
+ Disability Insurance
+ Health Insurance
+ Homeowners and Renters Insurance
+ Life Insurance
+ Life Stages
+ Long-term Care Insurance
+ Safety and Mitigation
+ Specialty Insurance
+ Business Insurance - General
+ Commercial Auto
+ Liability Insurance
+ Property Insurance
+ Specialty Business Insurance
+ Workers Compensation
+ Disasters+Risks
+ Climate Change
+ Crime
+ Disaster Preparedness
+ Highway Safety
+ Litigation
+ Natural Disasters
+ Terrorism
+ Insurance Industry
+ Accounting
+ Financial Results and Market Conditions
+ Financial Services
+ Fraud
+ Insurance Marketplace
+ Insurance Operation
+ Financial Services
+
