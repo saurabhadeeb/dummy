@@ -20,10 +20,26 @@ class TwitController < ApplicationController
   end
   
   def search
+    Rails.logger.debug "Inside TwitController - search"
     @list_of_tweets = {}
     search_text='"'+params[:id]+'"'+" -job -jobs filter:links"
     search_query = URI.encode(search_text)
     opts = {:result_type=>"recent", :lang=>"en", :count=>"200"}
-    @tweets = Twitter_client.search(search_query, opts)
+    twit_results = Twitter_client.search(search_query, opts)
+    @tweets = Array.new
+    expanded_urls = Array.new
+    current_url_count = 0
+    twit_results.each_with_index do |t, index|
+      tweeted_url = t.urls.first.expanded_url.to_s
+      if !expanded_urls.include?(tweeted_url)
+        expanded_urls << tweeted_url
+        tweet_row = Hash.new
+        tweet_row[:tweet]=t
+        tweet_row[:url]=tweeted_url
+        @tweets << tweet_row
+      end
+    end
+  rescue Twitter::Error => e
+    @error = e
   end
 end

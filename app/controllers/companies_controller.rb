@@ -53,7 +53,7 @@ class CompaniesController < ApplicationController
      download_name = ViddlRb.get_names(@final_url).first
      ext = File.extname(download_name)
      @generated_filename=Time.now.strftime("%Y%m%d%H%M%S")+(rand * 1000000).round.to_s + ext
-     download_and_store_video(download_name)
+     # download_and_store_video(download_name)
    elsif host.include?("slideshare.net")
      @slideshow = true
      get_title(page)
@@ -81,7 +81,7 @@ class CompaniesController < ApplicationController
    Rails.logger.debug "Downloading and storing the video file"
    Rails.logger.debug "Downloaded filename will be #{downloaded_filename}"
    Rails.logger.debug "Stored filename will be #{@generated_filename}"
-   system("viddl-rb #{@final_url} --save-dir public/videos")
+   system("viddl-rb", "#{@final_url}", "--save-dir", "public/videos")
    FileUtils.mv "public/videos/#{downloaded_filename}", "public/videos/#{@generated_filename}"
  end
  
