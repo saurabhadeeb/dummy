@@ -1,13 +1,15 @@
 Dummy::Application.routes.draw do
   
-  match '/twitter' => 'twit#index'
+  match '/' => 'twit#index'
+ 
+#  match '/twitter' => 'twit#index'
   match '/twitter/search' => 'twit#search'
   
-  get "say/hello"
+#  get "say/hello"
 
-  get "say/goodbye"
+#  get "say/goodbye"
   
-  post "companies/data"
+#  post "companies/data"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -15,7 +17,7 @@ Dummy::Application.routes.draw do
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
-match '/companies' => 'companies#show'
+# match '/companies' => 'companies#show'
   
   # Sample of named route:
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
@@ -23,7 +25,7 @@ match '/companies' => 'companies#show'
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-resources :companies
+# resources :companies
   # Sample resource route with options:
   #   resources :products do
   #     member do
