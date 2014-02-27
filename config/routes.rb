@@ -3,6 +3,8 @@ Dummy::Application.routes.draw do
   match '/twitter' => 'twit#index'
   match '/twitter/search' => 'twit#search'
   
+  resources :users
+
   get "say/hello"
 
   get "say/goodbye"

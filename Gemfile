@@ -33,6 +33,7 @@ gem 'jw_player_helper'
 gem 'twitter'
 gem 'rails_autolink'
 gem 'rambling-slider-rails'
+gem 'paperclip'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
