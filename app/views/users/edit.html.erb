@@ -1,0 +1,22 @@
+<% provide(:title, 'Edit User') %>
+<h1>Edit User</h1>
+
+<div>
+  <%= form_for @user, :html => {:multipart => true} do |f| %>
+  <div>
+    <%= image_tag @user.avatar.url(:medium) %>
+  </div>
+    <%= f.label :name %>
+    <%= f.text_field :name, :input_html => {:value=>@user.name} %><br/>
+  
+    <%= f.label :email_id %>
+    <%= f.text_field :email_id, :input_html => {:value=>@user.email_id} %><br/>
+    
+    <%= f.label :avatar %>
+    <%= f.file_field :avatar %><br/>
+  
+    <%= f.submit "Update User" %> 
+  <% end %>
+    or <%= button_to "Delete User", user_path(@user), method: :delete, data: {confirm: "Are you sure you  want to delete this user?"}%>
+
+</div>

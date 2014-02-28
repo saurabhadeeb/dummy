@@ -1,0 +1,28 @@
+
+<% unless @users.blank? %>
+  <h2>List of Users</h2>
+  <div class="user-list-container">
+  <% @users.each_with_index do |u, i| %>
+    <div class="user-container">
+      <div style="float:left; margin:50px 10px 10px 10px"><%= "#{i+1}." %></div>
+        <div style="float:left; margin:10px">
+          <%= link_to(image_tag(u.avatar.url(:thumb)), user_path(u)) %>
+        </div>
+        <div style="float:left; margin:10px 30px 10px 10px">
+          <br/><strong><%= link_to(u.name, user_path(u)) %></strong><br/><br/><%= u.email_id %>
+        </div> 
+        <div>
+          <br/><%= button_to "Edit", edit_user_path(u), method: :get %><br/>
+          <%= button_to "Delete", user_path(u), method: :delete, data: {confirm: "Are you sure you  want to delete this user?"}%>
+        </div>
+      </div>
+      <div style="clear:both"></div>
+  <% end %>
+  </div>
+<% else %>
+  <h2>No Users Found</h2>
+<%  end %>
+
+<p>
+  <%= link_to "Create new user", new_user_path %>
+</p>
