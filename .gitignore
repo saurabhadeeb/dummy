@@ -13,8 +13,11 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+/test/*
 
 #Ignore the stored videos, images and slides
 /public/img/*
 /public/slides/*
 /public/videos/*
+/public/system/avatars/*
+

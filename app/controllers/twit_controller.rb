@@ -28,15 +28,18 @@ class TwitController < ApplicationController
     twit_results = Twitter_client.search(search_query, opts)
     @tweets = Array.new
     expanded_urls = Array.new
-    current_url_count = 0
+    Rails.logger.debug "No. of tweets returned: #{twit_results.count}"
     twit_results.each_with_index do |t, index|
-      tweeted_url = t.urls.first.expanded_url.to_s
-      if !expanded_urls.include?(tweeted_url)
-        expanded_urls << tweeted_url
-        tweet_row = Hash.new
-        tweet_row[:tweet]=t
-        tweet_row[:url]=tweeted_url
-        @tweets << tweet_row
+      Rails.logger.debug "=== #{index}. #{t.urls.inspect}"
+      unless t.urls.blank?
+        tweeted_url = t.urls.first.expanded_url.to_s
+        if !expanded_urls.include?(tweeted_url)
+          expanded_urls << tweeted_url
+          tweet_row = Hash.new
+          tweet_row[:tweet]=t
+          tweet_row[:url]=tweeted_url
+          @tweets << tweet_row
+        end
       end
     end
   rescue Twitter::Error => e
