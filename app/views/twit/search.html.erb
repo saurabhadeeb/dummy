@@ -134,7 +134,7 @@
                 <%= auto_link(t[:tweet].text, :html => { :target => '_blank' }) %>
               </td>
               <td>
-                <a href="<%= t[:url] %> target="_blank"><%= URI.parse(t[:url]).host %></a>
+                <a href="<%= t[:url] %>" target="_blank"><%= URI.parse(t[:url]).host %></a>
               </td>
             </tr>
           <% end %>
