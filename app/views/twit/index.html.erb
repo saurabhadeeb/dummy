@@ -103,6 +103,27 @@
 	border-width:0px 0px 1px 1px;
 }
 
+.textEntryContainer {
+  text-align: center;
+  margin: 10px 10%;
+}
+.qtext {
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  font-family: Verdana;
+  color: #0f0f0f;
+  font-size: 10pt;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  width: 300px;
+}
+
+.qtext:focus {
+  outline: none;
+  border-color: #ff0f00;
+}
+
 .btn {
   background: #3498db;
   background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
@@ -135,11 +156,16 @@
 </style>
 
 <h2 class="header">
-  Please select from the list of keywords below
+  Please enter text or select from the list of keywords below
 </h2>
-</div>
+
 <form action="/twitter/search" method="get">
+  
   <div class="TopicsTable">
+    <div class="textEntryContainer">
+      <%= text_field_tag 'id', nil, :class => 'qtext', :placeholder => 'Enter search term...' %>
+      <%= submit_tag nil, :class => "btn" %>
+    </div>
     <div class="CSSTableGenerator">
       <table>
         <tr>
