@@ -31,7 +31,7 @@ class TwitController < ApplicationController
     expanded_urls = Array.new
     Rails.logger.debug "No. of tweets returned: #{twit_results.count}"
     twit_results.each_with_index do |t, index|
-      Rails.logger.debug "=== #{index+1}. #{t.urls.inspect}"
+    #  Rails.logger.debug "=== #{index+1}. #{t.urls.inspect}"
       unless t.urls.blank?
         tweeted_url = t.urls.first.expanded_url.to_s
         if !expanded_urls.include?(tweeted_url)
