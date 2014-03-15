@@ -3,7 +3,14 @@ Dummy::Application.routes.draw do
   match '/twitter' => 'twit#index'
   match '/twitter/search' => 'twit#search'
   
+  match '/sunlife' => 'sunlife#index'
+  match 'sunlife/sign_in' => 'sunlife#sign_in'
+  
   resources :users
+  
+  post 'users/update_chart', to: 'users#update_chart', as:'update_user_chart'
+  
+  get 'users/:id/edit_avatar', to: 'users#edit_avatar', as:'edit_avatar' 
 
   get "say/hello"
 
