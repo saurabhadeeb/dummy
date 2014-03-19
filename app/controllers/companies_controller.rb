@@ -58,7 +58,8 @@ class CompaniesController < ApplicationController
      @slideshow = true
      get_title(page)
      get_description(page,resp)
-     download_slides(page)
+     get_slideshare_embed_url(page)
+     #download_slides(page)
    else
      # Get the title from either og:title or from title tag 
      get_title(page)
@@ -96,6 +97,15 @@ class CompaniesController < ApplicationController
    end
    @title=HTMLEntities.new.decode(@title).squish
    Rails.logger.debug @title.inspect
+ end
+
+ # ONLY FOR SLIDESHARE
+ def get_slideshare_embed_url(page)
+   if !page.css("meta[name='twitter:player']").blank?
+     Rails.logger.debug("In CompaniesController-get_slideshare_embed_url - Found meta name=twitter:player")
+     @embed_url=page.css("meta[name='twitter:player']").first.attributes["value"].value.to_s
+     Rails.logger.debug("Slideshare embed url is #{@embed_url}")
+   end
  end
 
  def get_description(page, resp)

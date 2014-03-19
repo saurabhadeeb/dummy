@@ -1,203 +1,189 @@
-HR
- Corporate Responsibility
- Talent Management
- Employee Relations
- HR Metrics + Analytics
- HR Transformation
- Human Resource Business Partner
- Human Resource Strategy
- Organisation Development
-IT Testing
- Java
- .Net
- CBAP
- QSTE
- CSTE
- Inginium
- PMP
- Sharepoint
- Risk Management
- CMMi Framework
- Selinium
- Sahi
- Test NG
- Cucumber Framework
-Business Processing
- Annuities
- Retirals
- Group Insurance
- Life Insurance
- Disabilities
- Group Retirals
- Underwriting
- Actuarials
- Claims Processing
+Business Administration
+     Budget Preparations and reviews
+     Business Administration (General)
+     Environmental Management
+     Handling Statutory and government agencies
+     Office Management
+     Security Management
+     Service Level Agreement
+     Tracking Mechanisms
+     Travel Management
+     Vendor & Payment Management
 Business Communication
- Stakeholder Management and Communication
- Corporate Identity
- Corporate Branding
- Corporate Reputation
- Communication Strategy
- Internal Communication
- Social Media
- Crisis Communication
-Quality
- Six Sigma
- Statistical Process Control
- Quality Tools
- DOE
-Finance
- Financial Accounting
- Audit
- Evaluating Business Investments
- Accounting Standard
- Financial Management
- Portfolio Management
- Taxation
- Treasury Management
-Information Security
- Enterprise Data Protection
- Application and Platform Security
- Enterprise Identity and Access Management
- Government IT Security Management
- Information Security Threats
- Security Audit, Compliance and Standards
- Enterprise Network Security
- Information Security Management
-Technology Risk and Compliance
- Regulatory compliance needs
- SOX
- HIPAA
- PCI
- Vulnerability Assessments
- Compliance Software and Solutions
- Framework Software
- Data Retention Tools
- ID Management 
- Access Management
- Reporting Software
- Encryption Solution
- Log Management Software
- Training Audits
- Risk Management
- Information Technology Governance
- Enterprise Cloud Compliance
- Business Records Management
-Administration
- Service Level Agreement
- Vendor & Payment Management
- Tracking Mechanisms
- Security Management
- Office Management
- Travel Management
- Environmental Management
- Budget Preparations and reviews
- Handling Statutory and government agencies
-Sales
- Prospecting
- Sales Negotiations
- Sales Communication
- Sales Presentation
- Closing A Sale
- Art of Selling
- Relationship Building
- After Sales
- Sales Strategy
- Sales Tips
-Legal
- Intellectual Property
- Securities Law
- Legal Writing and Professional Communication
- Sports Law
- Drafting and Reviewing Commercial Contracts
- Mergers and Acquiitions law
- Banking and Finance Laws
- Environmental Law
- Legal Research
- Competition Law
- Contract Law
- Patent Law
- Audit 
- Taxation Laws
-Operations
- Business Process Outsourcing
- Disaster Recovery Management
- Business Continuity Management
- Project Management
- Production & Operations Management
- Management Information System
- Database Management System
- Business Process Improvement
- Total Quality Management
- Six Sigma - Introduction
-Strategy
- Business Planning
- Business Plans
- Project Management
- Risk Identification
- Business Intelligence
- Market Analysis
- feasability Studies
- Client Interaction
- Client development
- Business Development
+     Business Communication (General)
+     Communication Strategy
+     Corporate Branding
+     Corporate Identity
+     Corporate Reputation
+     Crisis Communication
+     Internal Communication
+     Social Media
+     Stakeholder Management
 Customer Service
- Customer Service and Sales
- Customer Relationship Management
- Customer Service Center
- CRM
-Management Topics
- Leadership Skills
- Team Management
- Problem Solving
- Decision Making
- Time Management
- Stress Management
- Communication Skills
- Coaching and Training
- Conflict Management
- Customer Service
- Diversity and Cultural Competency
- Interviewing, Hiring and Career Development
- Leadership
- Management Skills
- Negotiation and Sales Skills
- Performance and Productivity
- Team Management
- Work-Life Balance
+     Customer Relationship Management
+     Customer Service (General)
+     Customer Service and Sales
+     Customer Service Center
+Education
+     Education Industry (India)
+Finance
+     Accounting Standard
+     Audit
+     Evaluating Business Investments
+     Finance (General)
+     Financial Accounting
+     Financial Management
+     Portfolio Management
+     Taxation
+     Treasury Management
+Human Resources
+     Corporate Responsibility
+     Employee Relations
+     HR Metrics + Analytics
+     HR Transformation
+     Human Resource Business Partner
+     Human Resource Strategy
+     Human Resources (General)
+     Organisation Development
+     Talent Management
+Information Security
+     Application and Platform Security
+     Enterprise Data Protection
+     Enterprise Identity and Access Management
+     Enterprise Network Security
+     Government IT Security Management
+     Information Security (General)
+     Information Security Management
+     Information Security Threats
+     Regulatory compliance needs
+     Security Audit, Compliance and Standards
 Insurance
- Annuities
- Auto Insurance
- Claims Filing
- Credit
- Disability Insurance
- Health Insurance
- Homeowners and Renters Insurance
- Life Insurance
- Life Stages
- Long-term Care Insurance
- Safety and Mitigation
- Specialty Insurance
- Business Insurance - General
- Commercial Auto
- Liability Insurance
- Property Insurance
- Specialty Business Insurance
- Workers Compensation
- Disasters+Risks
- Climate Change
- Crime
- Disaster Preparedness
- Highway Safety
- Litigation
- Natural Disasters
- Terrorism
- Insurance Industry
- Accounting
- Financial Results and Market Conditions
- Financial Services
- Fraud
- Insurance Marketplace
- Insurance Operation
- Financial Services
-
+     General Insurance
+     Health Insurance
+     Insurance Industry (Canada)
+     Insurance Industry (India)
+     Life Insurance
+Legal
+     Audit 
+     Banking and Finance Laws
+     Commercial Contracts
+     Competition Law
+     Contract Law
+     Environmental Law
+     Intellectual Property
+     Legal (General)
+     Legal Research
+     Legal Writing
+     Mergers and Acquisitions Law
+     Patent Law
+     Securities Law
+     Sports Law
+     Taxation Laws
+Management Consulting
+     Management Consulting Industry (India)
+Management Skills
+     Coaching and Training
+     Communication Skills
+     Conflict Management
+     Customer Service
+     Decision Making
+     Leadership Skills
+     Management Skills
+     Negotiation and Sales Skills
+     Performance and Productivity
+     Problem Solving
+     Stress Management
+     Team Management
+     Time Management
+     Work-Life Balance
+Marketing
+     Advertising
+     Affiliate Marketing
+     B2B Marketing
+     Branding
+     Campaign Management
+     Consumer Demographics
+     Content Marketing
+     Creativity & Innovation
+     Customer Management
+     Digital Marketing
+     Direct Marketing
+     Marketing (General)
+     Marketing Research
+     Marketing Strategy
+     Mobile Marketing
+     Pricing
+     Search Marketing
+     Social Media Marketing
+Operations
+     Business Continuity Management
+     Business Process Improvement
+     Business Process Outsourcing
+     Database Management System
+     Disaster Recovery Management
+     Energy Management
+     Innovation Management
+     Logistics and Warehouse Management
+     Management Information System
+     Operations (General)
+     Production & Operations Management
+     Project Management
+     Service Operation Management
+     Six Sigma
+     Supply Chain Management
+     Total Quality Management
+Quality
+     DOE
+     Quality (General)
+     Quality Tools
+     Six Sigma
+     Statistical Process Control
+Retail
+     Category Management & Private Labels
+     E-tailing and non store retailing
+     Franchising and Global Retailing
+     Mall Management
+     Merchandising Management
+     Retail Banking Operations
+     Retail Branding
+     Retail Economics
+     Retail Strategy & Negotiation
+     Rural Retailing
+     Visual Merchandising
+Risk & Compliance
+     Business Records Management
+     Compliance Software and Solutions
+     Data Retention Tools
+     Encryption Solution
+     Enterprise Cloud Compliance
+     Framework Software
+     HIPAA
+     ID and access Management
+     Information Technology Governance
+     Log Management Software
+     PCI
+     Reporting Software
+     Risk & Compliance (General)
+     Risk Management
+     SOX
+     Training Audits
+     Vulnerability Assessments
+Sales
+     After Sales
+     Art of Selling
+     Prospecting
+     Relationship Building
+     Sales (General)
+     Sales Strategy
+Strategy
+     Business Intelligence
+     Business Planning
+     Business Plans
+     Client Management
+     Project Management
+     Risk Identification
+     Strategy (General)
+Technology
+     ERP
+     Technology (General)
+     Testing

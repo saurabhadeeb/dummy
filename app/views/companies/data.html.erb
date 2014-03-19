@@ -58,6 +58,8 @@
       </ul>
     </div>
   <% elsif @slideshow == true %>
+    <p><strong>Embed URL:</strong> <%= @embed_url %> </p>
+    <p><strong>Embedded slideshare presentation:</strong><br/><iframe src="<%= @embed_url %>?rel=0" width="597" height="486" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px 1px 0; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> </p>
     <h1 id="article-title"> <%= @title %> </h1>
     <h4 id="article-desc"> <%= @description %> </h4>
     <div class="slider-wrapper theme-default">
