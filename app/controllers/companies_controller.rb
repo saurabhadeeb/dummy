@@ -27,54 +27,63 @@ class CompaniesController < ApplicationController
      return
    end
    
-   resp = open(url, :allow_redirections => :all)
-
-   page=Nokogiri::HTML(resp.read)
-   
-   @final_url = resp.base_uri.to_s
-   
-   if !page.css("base").blank? and !page.css("base").first.attributes["href"].blank?
-     @base_url=page.css("base").first.attributes["href"].value.to_s
-   else
-     @base_url=@final_url
+   begin
+     resp = open(url, :allow_redirections => :all)
+     page=Nokogiri::HTML(resp.read)
+     @final_url = resp.base_uri.to_s
+   rescue => ex
+     Rails.logger.debug "Error in fetching URL provided."
+     @final_url = url
+     errorInURL=true
    end
-   Rails.logger.debug("Base URL: #{@base_url.inspect}")
-   
-   @final_img_srcs=Array.new
-   @slide_images = Array.new
-   @slideshow = false
-   @og_image_found = false
-   
-   host = URI.parse(@final_url).host
-   
-   if host.include?("youtube.com") or host.include?("vimeo.com")
-     @video = VideoInfo.new(@final_url)
-     get_description(page, resp)
-     download_name = ViddlRb.get_names(@final_url).first
-     ext = File.extname(download_name)
-     @generated_filename=Time.now.strftime("%Y%m%d%H%M%S")+(rand * 1000000).round.to_s + ext
-     # download_and_store_video(download_name)
-   elsif host.include?("slideshare.net")
-     @slideshow = true
-     get_title(page)
-     get_description(page,resp)
-     get_slideshare_embed_url(page)
-     #download_slides(page)
+
+   if !errorInURL
+      if !page.css("base").blank? and !page.css("base").first.attributes["href"].blank?
+        @base_url=page.css("base").first.attributes["href"].value.to_s
+      else
+        @base_url=@final_url
+      end
+      Rails.logger.debug("Base URL: #{@base_url.inspect}")
+
+      @final_img_srcs=Array.new
+      @slide_images = Array.new
+      @slideshow = false
+      @og_image_found = false
+
+      host = URI.parse(@final_url).host
+
+      if host.include?("youtube.com") or host.include?("vimeo.com")
+        @video = VideoInfo.new(@final_url)
+        get_description(page, resp)
+        download_name = ViddlRb.get_names(@final_url).first
+        ext = File.extname(download_name)
+        @generated_filename=Time.now.strftime("%Y%m%d%H%M%S")+(rand * 1000000).round.to_s + ext
+        # download_and_store_video(download_name)
+      elsif host.include?("slideshare.net")
+        @slideshow = true
+        get_title(page)
+        get_description(page,resp)
+        get_slideshare_embed_url(page)
+        #download_slides(page)
+      else
+        # Get the title from either og:title or from title tag 
+        get_title(page)
+
+        # Get the image if specified by og:image property */
+        get_og_image(page)
+
+        #Get the snippet 
+        get_description(page, resp)
+
+        if @resolved_text.blank?
+          get_content_from_response(resp)
+        end
+        num_words = @resolved_text.split.size
+        @reading_minutes = num_words/100
+      end
    else
-     # Get the title from either og:title or from title tag 
-     get_title(page)
-     
-     # Get the image if specified by og:image property */
-     get_og_image(page)
-     
-     #Get the snippet 
-     get_description(page, resp)
-     
-     if @resolved_text.blank?
-       get_content_from_response(resp)
-     end
-     num_words = @resolved_text.split.size
-     @reading_minutes = num_words/100
+     @reading_minutes = 0
+     @resolved_text = "404: URL provided could not be fetched. Hmmm, why don't you make sure it's correct?"
    end
  end
  
@@ -147,32 +156,37 @@ class CompaniesController < ApplicationController
    p = Nokogiri::HTML::DocumentFragment.parse(document.content)
    Rails.logger.debug "Number of images is #{p.search('img').count}"
    p.search('img').each do |i|
-     img_hash=Hash.new
-     src=i['src']
-     basename = File.basename(URI.parse(src).path)
-     Rails.logger.debug URI.join(@base_url, src)
-     open(URI.join(@base_url,src)) { |f|
-       FileUtils::mkdir_p "public/img" unless Dir.exists?("public/img")
-       File.open("public/img/#{basename}","wb") do |file|
-         file.puts f.read
-       end
-     }
-     current_scheme=request.scheme
-     current_host=request.host
-     current_port=request.port
-     i['src']="#{current_scheme}://#{current_host}:#{current_port}/img/#{basename}"
-     if !@og_image_found
-       size=FastImage.size("public/img/#{basename}")
-       if !size.blank?
-         Rails.logger.debug {src+" Size:["+size[0].to_s+","+size[1].to_s+"]"}
-         if (size[0]>=120 or size[1]>=120)
-           img_hash[:url]="#{current_scheme}://#{current_host}:#{current_port}/img/#{basename}"
-           img_hash[:size]=size.inject(:*)
-           Rails.logger.debug img_hash.inspect
-           @final_img_srcs<<img_hash
-           break if @final_img_srcs.count == 5
-         end
-       end
+     begin
+       img_hash=Hash.new
+       src=i['src']
+       basename = File.basename(URI.parse(src).path)
+       Rails.logger.debug URI.join(@base_url, src)
+       open(URI.join(@base_url,src)) { |f|
+         FileUtils::mkdir_p "public/img" unless Dir.exists?("public/img")
+         File.open("public/img/#{basename}","wb") do |file|
+            file.puts f.read
+        end
+        }
+        current_scheme=request.scheme
+        current_host=request.host
+        current_port=request.port
+        i['src']="#{current_scheme}://#{current_host}:#{current_port}/img/#{basename}"
+        if !@og_image_found
+          size=FastImage.size("public/img/#{basename}")
+          if !size.blank?
+            Rails.logger.debug {src+" Size:["+size[0].to_s+","+size[1].to_s+"]"}
+            if (size[0]>=120 or size[1]>=120)
+              img_hash[:url]="#{current_scheme}://#{current_host}:#{current_port}/img/#{basename}"
+              img_hash[:size]=size.inject(:*)
+              Rails.logger.debug img_hash.inspect
+              @final_img_srcs<<img_hash
+              break if @final_img_srcs.count == 5
+            end
+          end
+        end
+     rescue Exception => ex
+       Rails.logger.debug "Get and replace images. Error in handling image no. #{i.to_s}. Continuing to next iteration."
+       next
      end
    end
    @page_content = p.to_html
@@ -193,13 +207,21 @@ class CompaniesController < ApplicationController
    if !image.blank?
      Rails.logger.debug("In CompaniesController-get_og_image - Found og:image")
      basename = File.basename(URI.parse(image).path)
-     open(URI.join(@base_url,image)) { |f|
-       FileUtils::mkdir_p "public/img" unless Dir.exists?("public/img")
-       File.open("public/img/#{basename}","wb") do |file|
-         file.puts f.read
+     begin
+      open(URI.join(@base_url,image)) { |f|
+        FileUtils::mkdir_p "public/img" unless Dir.exists?("public/img")
+        File.open("public/img/#{basename}","wb") do |file|
+          file.puts f.read
        end
-     }
+       }
+     rescue Exception => ex
+       Rails.logger.debug "Found an exception in openURI. Returning"
+       @og_image_found=false
+       return
+     end
+     Rails.logger.debug "Getting size of specified og image"
      size=FastImage.size("public/img/#{basename}")
+     Rails.logger.debug "Size is blank" if size.blank?
      if !size.blank?
        Rails.logger.debug {image+" Size:["+size[0].to_s+","+size[1].to_s+"]"}
        img_hash=Hash.new

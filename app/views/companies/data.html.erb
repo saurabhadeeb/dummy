@@ -91,7 +91,7 @@
     -->
     <div id="article-container">
       <div id="text-container">
-        <%= HTMLEntities.new.decode(@page_content).squish.html_safe %><br/><br/>
+        <%= HTMLEntities.new.decode(@resolved_text).squish.html_safe %><br/><br/>
       </div>
     </div>
     <div>
