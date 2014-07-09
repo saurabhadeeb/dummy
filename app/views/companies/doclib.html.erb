@@ -1,0 +1,36 @@
+
+
+<% if @doctype == "ms_office" %>
+    <iframe style="width:70%; height:550px"
+            src="https://view.officeapps.live.com/op/view.aspx?src=<%= @rsc_loc %>"></iframe>
+<% else %>
+  <div>
+    <% if !@directories.blank? %>
+    <h2>Folders:</h2>
+      <ul>
+        <% @directories.each do |dn| %>
+        <li>
+          <%= image_tag(dn[:icon], :alt => "folder-icon", :width => 30, :height => 30, :title => "Folder Icon") %>
+          <%= link_to dn[:basename], companies_doclib_path(:resource => dn[:relative_path]) %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+    <% end %>
+    <% if !@files.blank? %>
+      <div>
+        <h2>Files:</h2>
+        <ul>
+          <% @files.each do |fn| %>
+          <li>
+            <%= image_tag(fn[:icon], :alt => "filetype-icon", :width => 30, :height => 30, :title => "File Type Icon") %>
+            <%= link_to fn[:basename], companies_doclib_path(:resource => fn[:relative_path]), :target => "_blank" %>
+          </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <% if @directories.blank? and @files.blank? %>
+    <div><h2>Oops, nothing added to this section yet!</h2></div>
+    <% end %>
+<% end %>

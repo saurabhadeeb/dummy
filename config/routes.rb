@@ -1,8 +1,8 @@
 Dummy::Application.routes.draw do
   
-  match '/' => 'twit#index'
+  #match '/' => 'twit#index'
  
-#  match '/twitter' => 'twit#index'
+  match '/twitter' => 'twit#index'
   match '/twitter/search' => 'twit#search'
   
   match '/sunlife' => 'sunlife#index'
@@ -19,6 +19,8 @@ Dummy::Application.routes.draw do
   
   post "companies/data"
 
+  get "companies/doclib"
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
