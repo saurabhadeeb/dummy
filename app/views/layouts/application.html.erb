@@ -10,7 +10,9 @@
   <script src="http://jwpsrv.com/library/pFnidpNJEeO6mCIACmOLpg.js"></script>
 </head>
 <body>
-
+<% if flash[:error] -%>
+  <p class='error'><%=h flash[:error] %></p>
+<% end -%>
 <%= yield %>
 
 </body>

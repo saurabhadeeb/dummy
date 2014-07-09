@@ -18,65 +18,89 @@ class CompaniesController < ApplicationController
    if !params[:resource].blank?
      resource_full_path += "/"+ params[:resource]
    end
+   if !params[:resource].blank?
+     @doclib_breadcrumbs = Array.new
+     prev_path = String.new
+     tree = params[:resource].split('/')
+     tree.each do |node|
+       node_hash = Hash.new
+       node_hash[:name] = node.titleize
+       if !prev_path.blank?
+         prev_path = prev_path + '/' + node
+       else
+         prev_path = node
+       end
+       node_hash[:query] = prev_path
+       @doclib_breadcrumbs << node_hash
+     end
+   end
+   
    Rails.logger.debug "requested resource path #{resource_full_path.inspect}"
    if Dir.exists?(resource_full_path)
-    listing = Dir.glob(resource_full_path+"/*").sort
-    @directories = Array.new
-    @files = Array.new
-    listing.each do |fname|
-      fn_hash = Hash.new
-      # Remove the public/<domain> directories from the path
-      relative_path = fname.sub(fname.split('/')[0..1].join('/')+'/',"")
-      Rails.logger.debug "Relative path is #{relative_path.inspect}"
-      # Replace - and _ with a space for readable names
-      basename = Pathname.new(fname).basename.to_s.gsub('-',' ')
-      if Dir.exists?(fname)
-        dir_hash = Hash.new
-        well_formed_name = basename.gsub('_',' ').titleize
-        dir_hash[:relative_path] = relative_path
-        dir_hash[:basename] = well_formed_name
-        dir_hash[:icon] = "/img/folder-icon.png"
-        @directories << dir_hash
-      else
-        file_hash = Hash.new
-        split_name=basename.split('.')
-        extn = split_name.last
-        size=split_name.size
-        # well_formed_name = split_name[0..size-2].join(' ').titleize + '.'+split_name[size-1]
-        well_formed_name = split_name[0..size-2].join(' ').titleize
-        file_hash[:relative_path] = relative_path
-        file_hash[:basename] = well_formed_name
-        case extn.downcase
-        when "ppt", "pptx"
-          file_hash[:icon] = "/img/ppt_icon.png"
-        when "doc", "docx"
-          file_hash[:icon] = "/img/doc-icon.png"
-        when "xls", "xlsx"
-          file_hash[:icon] = "/img/xls-icon.png"
-        when "pdf"
-          file_hash[:icon] = "/img/pdf-icon.png"
-        when "jpg", "jpeg", "png", "gif"
-          file_hash[:icon] = "/img/img-icon.png"
-        else
-          file_hash[:icon] = "img/other-file_type.png"
-        end
-        @files << file_hash
-      end
-    end
-   else
-     # not a directory, display the file
-     # get the file extn and assume that it will be the type
-     extn = params[:resource].split('.').last
-     case extn
-     when "doc", "docx", "ppt", "pptx", "xls", "xlsx"
-       @doctype = "ms_office"
-       @rsc_loc = request.scheme + "://" + request.host
-       @rsc_loc += ":" + request.port.to_s if !request.port.blank?
-       @rsc_loc += '/' + resource_full_path.split('/').drop(1).join('/')
+     listing = Dir.glob(resource_full_path+"/*").sort
+     @directories = Array.new
+     @files = Array.new
+     listing.each do |fname|
+       fn_hash = Hash.new
+       # Remove the public/<domain> directories from the path
+       relative_path = fname.sub(fname.split('/')[0..1].join('/')+'/',"")
+       Rails.logger.debug "Relative path is #{relative_path.inspect}"
+       # Replace - and _ with a space
+       basename = Pathname.new(fname).basename.to_s.gsub('-',' ')
+       well_formed_name = basename.gsub('_',' ')
+       if Dir.exists?(fname)
+         dir_hash = Hash.new
+         # Capitalize 1st letter of each word. Titleize does this but makes others lowercase
+         well_formed_name = well_formed_name.gsub(/\b\w/){ $&.upcase }
+         dir_hash[:relative_path] = relative_path
+         dir_hash[:basename] = well_formed_name
+         dir_hash[:icon] = "/img/folder-icon.png"
+         @directories << dir_hash
+       else
+         file_hash = Hash.new
+         split_name=well_formed_name.split('.')
+         extn = split_name.last
+         size=split_name.size
+         # well_formed_name = split_name[0..size-2].join(' ').titleize + '.'+split_name[size-1]
+         well_formed_name = split_name[0..size-2].join(' ')
+         # Capitalize 1st letter of each word. Titleize does this but makes others lowercase
+         well_formed_name = well_formed_name.gsub(/\b\w/){ $&.upcase }
+         file_hash[:relative_path] = relative_path
+         file_hash[:basename] = well_formed_name
+         case extn.downcase
+         when "ppt", "pptx"
+           file_hash[:icon] = "/img/ppt_icon.png"
+         when "doc", "docx"
+           file_hash[:icon] = "/img/doc-icon.png"
+         when "xls", "xlsx"
+           file_hash[:icon] = "/img/xls-icon.png"
+         when "pdf"
+           file_hash[:icon] = "/img/pdf-icon.png"
+         when "jpg", "jpeg", "png", "gif"
+           file_hash[:icon] = "/img/img-icon.png"
+         else
+           file_hash[:icon] = "/img/other-file_type.png"
+         end
+         @files << file_hash
+       end
+     end
+   else if File.exists?(resource_full_path)
+       # not a directory, display the file
+       # get the file extn and assume that it will be the type
+       extn = params[:resource].split('.').last
+       case extn
+       when "doc", "docx", "ppt", "pptx", "xls", "xlsx"
+         @doctype = "ms_office"
+         @rsc_loc = request.scheme + "://" + request.host
+         @rsc_loc += ":" + request.port.to_s if !request.port.blank?
+         @rsc_loc += '/' + resource_full_path.split('/').drop(1).join('/')
+       else
+         Rails.logger.debug "Redirecting to view/download resource directly"
+         redirect_to_resource = '/' + resource_full_path.split('/').drop(1).join('/')
+         redirect_to redirect_to_resource
+       end
      else
-       Rails.logger.debug "Redirecting to view/download resource directly"
-       redirect_to_resource = '/' + resource_full_path.split('/').drop(1).join('/')
-       redirect_to redirect_to_resource
+       redirect_to companies_doclib_path, :flash => { :error => "Oops! Looks like you tried to access an invalid resource." }
      end
    end
  end

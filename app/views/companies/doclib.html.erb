@@ -1,16 +1,44 @@
-
+<style>
+  a {
+    color:darkblue;
+    text-decoration: none;
+  }
+  a:hover {
+    color:blue;
+    text-decoration: underline;
+  }
+  
+  #bc {
+    background-color:lavender;
+  }
+</style>
 
 <% if @doctype == "ms_office" %>
     <iframe style="width:70%; height:550px"
             src="https://view.officeapps.live.com/op/view.aspx?src=<%= @rsc_loc %>"></iframe>
 <% else %>
-  <div>
+    <% # breadcrumbs %>
+    <div id="bc">
+      <%= link_to "Home", companies_path %>
+      &nbsp;<%= image_tag("/img/breadcrumbs-arrow.gif", :alt => "breadcrumb-nav", :width => 10, :height => 10) %>&nbsp;
+      <%= link_to "XLRI Document Library", companies_doclib_path %>
+      <% if !@doclib_breadcrumbs.blank? %>
+        <% @doclib_breadcrumbs.each do |bc| %>
+          &nbsp;<%= image_tag("/img/breadcrumbs-arrow.gif", :alt => "breadcrumb-nav", :width => 10, :height => 10) %>&nbsp;
+          <%= link_to bc[:name], companies_doclib_path(:resource => bc[:query]) %>
+        <% end %>
+      <% end %>
+    </div>
+    <div>
+      
+    </div>
+    <div>
     <% if !@directories.blank? %>
-    <h2>Folders:</h2>
+    <h3>Folders:</h3>
       <ul>
         <% @directories.each do |dn| %>
         <li>
-          <%= image_tag(dn[:icon], :alt => "folder-icon", :width => 30, :height => 30, :title => "Folder Icon") %>
+          <%= image_tag(dn[:icon], :alt => "folder-icon", :width => 30, :height => 30, :title => "Collection") %>
           <%= link_to dn[:basename], companies_doclib_path(:resource => dn[:relative_path]) %>
         </li>
         <% end %>
@@ -19,11 +47,11 @@
     <% end %>
     <% if !@files.blank? %>
       <div>
-        <h2>Files:</h2>
+        <h3>Files:</h3>
         <ul>
           <% @files.each do |fn| %>
           <li>
-            <%= image_tag(fn[:icon], :alt => "filetype-icon", :width => 30, :height => 30, :title => "File Type Icon") %>
+            <%= image_tag(fn[:icon], :alt => "filetype-icon", :width => 30, :height => 30, :title => "File") %>
             <%= link_to fn[:basename], companies_doclib_path(:resource => fn[:relative_path]), :target => "_blank" %>
           </li>
           <% end %>
@@ -31,6 +59,6 @@
       </div>
     <% end %>
     <% if @directories.blank? and @files.blank? %>
-    <div><h2>Oops, nothing added to this section yet!</h2></div>
+    <div><h3>Oops, nothing added to this section yet!</h3></div>
     <% end %>
 <% end %>
