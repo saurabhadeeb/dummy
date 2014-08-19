@@ -124,7 +124,18 @@ class CompaniesController < ApplicationController
    
    begin
      resp = open(url, :allow_redirections => :all)
-     page=Nokogiri::HTML(resp.read)
+     if resp.content_type.in?(['image/png','image/jpeg','image/gif','image/bmp','image/svg+xml'])
+       url_for="image"
+     elsif resp.content_type.in?(['application/pdf','application/x-pdf','application/msword',
+           'application/vnd.ms-excel','application/vnd.ms-powerpoint'])
+       url_for="document"
+     elsif resp.content_type.in?(['text/html'])
+       url_for="website"
+       page=Nokogiri::HTML(resp.read)
+     else
+       url_for="unknown"
+     end
+
      @final_url = resp.base_uri.to_s
    rescue => ex
      Rails.logger.debug "Error in fetching URL provided."
@@ -132,7 +143,7 @@ class CompaniesController < ApplicationController
      errorInURL=true
    end
 
-   if !errorInURL
+   if !errorInURL and url_for=="website"
       if !page.css("base").blank? and !page.css("base").first.attributes["href"].blank?
         @base_url=page.css("base").first.attributes["href"].value.to_s
       else
@@ -176,9 +187,19 @@ class CompaniesController < ApplicationController
         num_words = @resolved_text.split.size
         @reading_minutes = num_words/100
       end
+   elsif !errorInURL and url_for=="image"
+     # Fetch the image and store it such that it becomes the KB's og:image that shows in the preview
+     # Here, the description and reading_minutes and offline content should be made blank, if they are not already
+      @image_url=true
+      @reading_minutes=0
+   elsif !errorInURL and url_for=="document"
+     # og:image should be the default image in this case.
+     # Also, no description can be provided so it should be blank with reading mins as 0
+     @doc_url=true
+     @reading_minutes=0
    else
      @reading_minutes = 0
-     @resolved_text = "404: URL provided could not be fetched. Hmmm, why don't you make sure it's correct?"
+     @resolved_text = "No preview available!"
    end
  end
  
@@ -253,9 +274,11 @@ class CompaniesController < ApplicationController
    p.search('img').each do |i|
      begin
        img_hash=Hash.new
-       src=i['src']
+       src = URI.encode(i['src'])
+       Rails.logger.debug "src = #{src}"
        basename = File.basename(URI.parse(src).path)
-       Rails.logger.debug URI.join(@base_url, src)
+       Rails.logger.debug "basename = #{basename}"
+       Rails.logger.debug "Fetching image with src #{URI.join(@base_url, src)}"
        open(URI.join(@base_url,src)) { |f|
          FileUtils::mkdir_p "public/img" unless Dir.exists?("public/img")
          File.open("public/img/#{basename}","wb") do |file|
@@ -284,6 +307,20 @@ class CompaniesController < ApplicationController
        next
      end
    end
+   
+   # Replace all anchor URLs with absolute URLs
+   p.search('a').each do |a|
+     begin
+       href = URI.encode(a['href'])
+       Rails.logger.debug "href = #{href}"
+       a['href']=URI.join(@base_url,href).to_s
+       Rails.logger.debug "New href = #{a['href']}"
+     rescue Exception => ex
+       Rails.logger.debug "Error in resolving URL in href. #{a.to_s}. Continuing to next iteration."
+       next
+     end
+   end
+   
    @page_content = p.to_html
    @final_img_srcs.sort_by { |hsh| hsh[:size] }
    Rails.logger.debug @final_img_srcs.inspect
@@ -301,15 +338,15 @@ class CompaniesController < ApplicationController
    image = page.css("meta[property='og:image']").first.attributes["content"].value.to_s unless page.css("meta[property='og:image']").blank?
    if !image.blank?
      Rails.logger.debug("In CompaniesController-get_og_image - Found og:image")
-     basename = File.basename(URI.parse(image).path)
      begin
-      open(URI.join(@base_url,image)) { |f|
+       basename = File.basename(URI.parse(image).path)
+       open(URI.join(@base_url,image)) { |f|
         FileUtils::mkdir_p "public/img" unless Dir.exists?("public/img")
         File.open("public/img/#{basename}","wb") do |file|
           file.puts f.read
        end
        }
-     rescue Exception => ex
+     rescue => ex
        Rails.logger.debug "Found an exception in openURI. Returning"
        @og_image_found=false
        return
